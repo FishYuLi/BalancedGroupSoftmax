@@ -1,18 +1,15 @@
 # Overcoming Classifier Imbalance for Long-tail Object Detection with Balanced Group Softmax
 
 
-***Current reop is a complete version. We delete many redundant codes. Stil under testing now.***
+⚠️***Latest: Current repo is a complete version. But we delete many redundant codes and are still under testing now.***
 
-CVPR 2020 oral paper. 
+This repo is the official implementation for CVPR 2020 oral paper: **Overcoming Classifier Imbalance for Long-tail Object Detection with Balanced Group Softmax**.
 [[Paper]](http://openaccess.thecvf.com/content_CVPR_2020/papers/Li_Overcoming_Classifier_Imbalance_for_Long-Tail_Object_Detection_With_Balanced_Group_CVPR_2020_paper.pdf) 
 [[Supp]](http://openaccess.thecvf.com/content_CVPR_2020/supplemental/Li_Overcoming_Classifier_Imbalance_CVPR_2020_supplemental.pdf) 
 [[Slides]](https://drive.google.com/file/d/1d7kYZ2m1hlu3mw2QRTcgc2F00-Wm20qk/view?usp=sharing)
 [[Video]](https://youtu.be/MRziI-6mNy8)
 [[Code and models]](https://github.com/FishYuLi/BalancedGroupSoftmax)
 
-**This code is largely based on [mmdetection v1.0.rc0](https://github.com/open-mmlab/mmdetection/tree/v1.0rc0)**
-
-This repository is the official implementation of [Overcoming Classifier Imbalance for Long-tail Object Detection with Balanced Group Softmax](http://openaccess.thecvf.com/content_CVPR_2020/papers/Li_Overcoming_Classifier_Imbalance_for_Long-Tail_Object_Detection_With_Balanced_Group_CVPR_2020_paper.pdf). 
 
 > **Note: Current code is still not very clean yet. We are still working on it, and it will be updated soon.**
 
@@ -21,7 +18,7 @@ This repository is the official implementation of [Overcoming Classifier Imbalan
 
 ## Requirements
 
-### Environment:
+### 1. Environment:
 The requirements are exactly the same as [mmdetection v1.0.rc0](https://github.com/open-mmlab/mmdetection/blob/v1.0rc0/INSTALL.md). We tested on on the following settings:
 
 - Python 3.7
@@ -50,7 +47,7 @@ cd $HH
 python setup.py develop
 ```
 
-### Data:
+### 2. Data:
 #### a. For dataset images:
 
 ```shell=
@@ -222,7 +219,7 @@ The evaluation results will be shown in markdown table format:
 
 Please refer to our [paper](http://openaccess.thecvf.com/content_CVPR_2020/papers/Li_Overcoming_Classifier_Imbalance_for_Long-Tail_Object_Detection_With_Balanced_Group_CVPR_2020_paper.pdf) and [supp](http://openaccess.thecvf.com/content_CVPR_2020/supplemental/Li_Overcoming_Classifier_Imbalance_CVPR_2020_supplemental.pdf) for more details.
 
-|      | Models                       | bbox mAP / mask mAP | Train | Test |                                      Config file                                      |                                                                               Pretrained Model                                                                              | Train part |                                                Model                                               |
+|   ID   | Models                       | bbox mAP / mask mAP | Train | Test |                                      Config file                                      |                                                                               Pretrained Model                                                                              | Train part |                                                Model                                               |
 |:----:|------------------------------|:-------------------:|:-----:|:----:|:-------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|:----------:|:--------------------------------------------------------------------------------------------------:|
 |  (1) | Faster R50-FPN               |        20.98        |   √   |   √  |                [file](configs/baselines/faster_rcnn_r50_fpn_1x_lvis.py)               |                        [COCO R50](https://s3.ap-northeast-2.amazonaws.com/open-mmlab/mmdetection/models/faster_rcnn_r50_fpn_2x_20181010-443129e1.pth)                       |     All    | [Google drive](https://drive.google.com/file/d/1Fg2QVFbHofnexjI6lOdlGTPTFzbdDtRo/view?usp=sharing) |
 |  (2) | x2                           |        21.93        |   √   |   √  |         [file](configs/transferred/faster_rcnn_r50_fpn_1x_lvis_add12epoch.py)         |                                       [Model (1)](https://drive.google.com/file/d/1Fg2QVFbHofnexjI6lOdlGTPTFzbdDtRo/view?usp=sharing)                                       |     All    | [Google drive](https://drive.google.com/file/d/1rxu5IrNj2qEEe8d5QM_vyDyP_ftd8WzI/view?usp=sharing) |
@@ -248,5 +245,19 @@ Please refer to our [paper](http://openaccess.thecvf.com/content_CVPR_2020/paper
 | (22) | Ours (HTC X101-64x4d)        |     33.68/31.20     |   √   |   √  |              [file](configs/bags/gs_htc_x101_64x4d_fpn_20e_16gpu_lvis.py)             |                                       [Model (21)](https://drive.google.com/file/d/1TGAQeIAnVfgIuP7VUQDnbtV-tU640Il0/view?usp=sharing)                                      |     Cls    | [Google drive](https://drive.google.com/file/d/1rQuenL743EtMLzawA8LaeymTGIKj6QH0/view?usp=sharing) |
 | (23) | HTC X101-64x4d-MS-DCN        |     34.61/31.94     |   √   |   √  | [file](configs/baselines/htc_dconv_c3-c5_mstrain_400_1400_x101_64x4d_fpn_20e_lvis.py) | [COCO HTC x101-ms-dcn](https://s3.ap-northeast-2.amazonaws.com/open-mmlab/mmdetection/models/htc/htc_dconv_c3-c5_mstrain_400_1400_x101_64x4d_fpn_20e_20190408-0e50669c.pth) |     All    | [Google drive](https://drive.google.com/file/d/1xkKKqZrh6ZOvxxWnaBE87It71mgS1RhK/view?usp=sharing) |
 | (24) | Ours (HTC X101-64x4d-MS-DCN) |     37.71/34.39     |   √   |   √  |  [file](configs/bags/gs_htc_dconv_c3-c5_mstrain_400_1400_x101_64x4d_fpn_20e_lvis.py)  |                                       [Model (23)](https://drive.google.com/file/d/1xkKKqZrh6ZOvxxWnaBE87It71mgS1RhK/view?usp=sharing)                                      |     Cls    | [Google drive](https://drive.google.com/file/d/1QkfpYYAHgEym8KVg8a7zclSHe5LGssjH/view?usp=sharing) |
+> PS: in column `Pretrained Model`, the file of `Model (n)` is the same as the `Google drive` file in column `Model` in row `(n)`.
 
 
+## Citation
+```citation
+@inproceedings{li2020overcoming,
+  title={Overcoming Classifier Imbalance for Long-Tail Object Detection With Balanced Group Softmax},
+  author={Li, Yu and Wang, Tao and Kang, Bingyi and Tang, Sheng and Wang, Chunfeng and Li, Jintao and Feng, Jiashi},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={10991--11000},
+  year={2020}
+}
+```
+
+## Credit
+This code is largely based on [**mmdetection v1.0.rc0**](https://github.com/open-mmlab/mmdetection/tree/v1.0rc0) and [**LVIS API**](https://github.com/lvis-dataset/lvis-api).

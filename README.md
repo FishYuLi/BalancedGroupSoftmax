@@ -1,9 +1,12 @@
 # Overcoming Classifier Imbalance for Long-tail Object Detection with Balanced Group Softmax
 
+
+***Current reop is not a complete version. It will be updated very soon.***
+
 CVPR 2020 oral paper. 
 [[Paper]](http://openaccess.thecvf.com/content_CVPR_2020/papers/Li_Overcoming_Classifier_Imbalance_for_Long-Tail_Object_Detection_With_Balanced_Group_CVPR_2020_paper.pdf) 
 [[Supp]](http://openaccess.thecvf.com/content_CVPR_2020/supplemental/Li_Overcoming_Classifier_Imbalance_CVPR_2020_supplemental.pdf) 
-[[Slides]]()
+[[Slides]](https://drive.google.com/file/d/1d7kYZ2m1hlu3mw2QRTcgc2F00-Wm20qk/view?usp=sharing)
 [[Video]](https://youtu.be/MRziI-6mNy8)
 [[Code and models]](https://github.com/FishYuLi/BalancedGroupSoftmax)
 

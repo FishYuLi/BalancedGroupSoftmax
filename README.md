@@ -1,7 +1,7 @@
 # Overcoming Classifier Imbalance for Long-tail Object Detection with Balanced Group Softmax
 
 
-***Current reop is not a complete version. It will be updated very soon.***
+***Current reop is a complete version. We delete many redundant codes. Stil under testing now.***
 
 CVPR 2020 oral paper. 
 [[Paper]](http://openaccess.thecvf.com/content_CVPR_2020/papers/Li_Overcoming_Classifier_Imbalance_for_Long-Tail_Object_Detection_With_Balanced_Group_CVPR_2020_paper.pdf) 
@@ -83,9 +83,10 @@ mkdir pretrained_models
 - Move these model files to `./data/pretrained_models/`
 
 #### d. For intermediate files (**for BAGS and reweight models only**):
-> You can either [donwnload](https://drive.google.com/file/d/1MrMSmctpd_QT5cM0tZAUnP_0rZcWtCvt/view?usp=sharing) or [generate](docs/md/generate_intermediate.md) them before training and testing. Put them under `./data/lvis/`.
+> You can either [donwnload](https://drive.google.com/drive/folders/1UsCscmh7F6KOya1K7R2vTT5KswsIFVXd?usp=sharing) or [generate](docs/md/generate_intermediate.md) them before training and testing. Put them under `./data/lvis/`.
 - BAGS models: `label2binlabel.pt, pred_slice_with0.pt, valsplit.pkl`
 - Re-weight models: `cls_weight.pt, cls_weight_bours.pt`
+- RFS models: `class_to_imageid_and_inscount.pt`
 
 **After all these operations, the folder `data` should be like this:**
 ```
@@ -94,6 +95,8 @@ mkdir pretrained_models
     │   ├── lvis_v0.5_train.json
     │   ├── lvis_v0.5_val.json
     │   ├── stuffthingmaps (Optional, for HTC models only)
+    │   ├── label2binlabel.pt (Optional, for GAGS models only)
+    │   ├── ...... (Other intermidiate files)
     │   │   ├── train2017
     │   │   │   ├── 000000004134.png
     │   │   │   ├── 000000031817.png

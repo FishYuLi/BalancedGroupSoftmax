@@ -1,24 +1,30 @@
 # Overcoming Classifier Imbalance for Long-tail Object Detection with Balanced Group Softmax
 
-Published on CVPR 2020 as an oral paper.
+CVPR 2020 oral paper. 
+[[Paper]](http://openaccess.thecvf.com/content_CVPR_2020/papers/Li_Overcoming_Classifier_Imbalance_for_Long-Tail_Object_Detection_With_Balanced_Group_CVPR_2020_paper.pdf) 
+[[Supp]](http://openaccess.thecvf.com/content_CVPR_2020/supplemental/Li_Overcoming_Classifier_Imbalance_CVPR_2020_supplemental.pdf) 
+[[Slides]]()
+[[Video]](https://youtu.be/MRziI-6mNy8)
+[[Code and models]](https://github.com/FishYuLi/BalancedGroupSoftmax)
 
-This code is largely based on [mmdetection v1.0.rc0](https://github.com/open-mmlab/mmdetection/tree/v1.0rc0) 
+**This code is largely based on [mmdetection v1.0.rc0](https://github.com/open-mmlab/mmdetection/tree/v1.0rc0)**
 
 This repository is the official implementation of [Overcoming Classifier Imbalance for Long-tail Object Detection with Balanced Group Softmax](http://openaccess.thecvf.com/content_CVPR_2020/papers/Li_Overcoming_Classifier_Imbalance_for_Long-Tail_Object_Detection_With_Balanced_Group_CVPR_2020_paper.pdf). 
 
-> Note: Current code is still not very clean yet. We are still working on it, and it will be updated soon.
+> **Note: Current code is still not very clean yet. We are still working on it, and it will be updated soon.**
 
-![Framework](./Imgs/framework.png)
+![Framework](docs/Imgs/framework.png)
 
 
 ## Requirements
 
-#### Environment:
+### Environment:
 The requirements are exactly the same as [mmdetection v1.0.rc0](https://github.com/open-mmlab/mmdetection/blob/v1.0rc0/INSTALL.md). We tested on on the following settings:
 
 - Python 3.7
 - Pytorch 1.3.1+cu92
 - Cuda 9.2
+- mmcv 0.2.14
 
 ```setup
 HH=`pwd`
@@ -41,8 +47,8 @@ cd $HH
 python setup.py develop
 ```
 
-#### Dataset:
-**a. For dataset images:**
+### Data:
+#### a. For dataset images:
 
 ```shell=
 # Make sure you are in dir BalancedGroupSoftmax
@@ -59,7 +65,7 @@ mkdir pretrained_models
         [COCO val set](http://images.cocodataset.org/zips/val2017.zip)
         and unzip these files and mv them under folder `lvis`.
 
-**b. For dataset annotations:**
+#### b. For dataset annotations:
 - Download lvis annotations:
         [lvis train ann](https://s3-us-west-2.amazonaws.com/dl.fbaipublicfiles.com/LVIS/lvis_v0.5_train.json.zip) and
         [lvis val ann](https://s3-us-west-2.amazonaws.com/dl.fbaipublicfiles.com/LVIS/lvis_v0.5_val.json.zip).
@@ -67,13 +73,16 @@ mkdir pretrained_models
 
 > To train HTC models, download [COCO stuff annotations](http://calvin.inf.ed.ac.uk/wp-content/uploads/data/cocostuffdataset/stuffthingmaps_trainval2017.zip) and change the name of folder `stuffthingmaps_trainval2017` to `stuffthingmaps`.
 
-**c. For pretrained models:**
+#### c. For pretrained models:
+> Download the corresponding pre-trained models [below](#models).
 - To train baseline models, we need models trained on COCO to initialize. Please download the corresponding COCO models at [mmdetection model zoo](https://github.com/open-mmlab/mmdetection/blob/v1.0rc0/MODEL_ZOO.md).
-- To train balanced group softmax models (shorted as `gs` models), we need corresponding baseline models trained on LVIS to initialize and fix all parameters except for the last FC layer. These models are listed below.
-- Move these model files to `$./data/pretrained_models/`
+- To train balanced group softmax models (shorted as `gs` models), we need corresponding baseline models trained on LVIS to initialize and fix all parameters except for the last FC layer.
+- Move these model files to `./data/pretrained_models/`
 
-**d. For intermediate files:**
-- Training or testing BAGS models need 3 intermediate files which are calculated offline to specify the groups
+#### d. For intermediate files (**for BAGS and reweight models only**):
+> You can either [donwnload](https://drive.google.com/file/d/1MrMSmctpd_QT5cM0tZAUnP_0rZcWtCvt/view?usp=sharing) or [generate](docs/md/generate_intermediate.md) them before training and testing. Put them under `./data/lvis/`.
+- BAGS models: `label2binlabel.pt, pred_slice_with0.pt, valsplit.pkl`
+- Re-weight models: `cls_weight.pt, cls_weight_bours.pt`
 
 **After all these operations, the folder `data` should be like this:**
 ```
@@ -105,8 +114,11 @@ mkdir pretrained_models
 
 ## Training
 
+> **Note:** Please make sure that you have prepared the [pre-trained models](#c-for-pretrained-models) and [intermediate files](#d-for-intermediate-files-for-bags-and-reweight-models-only) and they have been put to the path specified in  `${CONIFG_FILE}`. 
+
 Use the following commands to train a model.
-> **Noted:** please make sure that the term `load_from` in ${CONIFG_FILE} is pointing to the right path corresponding its pre-trained model [(Check here)](#1.4). 
+
+
 ```train
 # Single GPU
 python tools/train.py ${CONFIG_FILE}
@@ -133,6 +145,8 @@ python tools/train.py configs/bags/gs_faster_rcnn_r50_fpn_1x_lvis_with0_bg8.py
 
 
 ## Testing
+
+> **Note:** Please make sure that you have prepared the [intermediate files](#d-for-intermediate-files-for-bags-and-reweight-models-only) and they have been put to the path specified in `${CONIFG_FILE}`. 
 
 Use the following commands to test a trained model. 
 ```test
@@ -196,9 +210,10 @@ The evaluation results will be shown in markdown table format:
 
 ## Results and models
 #### The main results on LVIS val set:
-![LVIS val results](./Imgs/results.png)
+![LVIS val results](docs/Imgs/results.png)
 
 #### Models:
+
 Please refer to our [paper](http://openaccess.thecvf.com/content_CVPR_2020/papers/Li_Overcoming_Classifier_Imbalance_for_Long-Tail_Object_Detection_With_Balanced_Group_CVPR_2020_paper.pdf) and [supp](http://openaccess.thecvf.com/content_CVPR_2020/supplemental/Li_Overcoming_Classifier_Imbalance_CVPR_2020_supplemental.pdf) for more details.
 
 |      | Models                       | bbox mAP / mask mAP | Train | Test |                                      Config file                                      |                                                                               Pretrained Model                                                                              | Train part |                                                Model                                               |

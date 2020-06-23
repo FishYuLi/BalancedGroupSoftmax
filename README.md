@@ -21,9 +21,10 @@ This repo is the official implementation for CVPR 2020 oral paper: **Overcoming 
 ### 1. Environment:
 The requirements are exactly the same as [mmdetection v1.0.rc0](https://github.com/open-mmlab/mmdetection/blob/v1.0rc0/INSTALL.md). We tested on on the following settings:
 
-- Python 3.7
-- Pytorch 1.3.1+cu92
-- Cuda 9.2
+- python 3.7
+- cuda 9.2
+- pytorch 1.3.1+cu92
+- torchvision 0.4.2+cu92
 - mmcv 0.2.14
 
 ```setup
